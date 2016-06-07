@@ -1,11 +1,19 @@
 {
   "name": "sequelize-context",
-  "version": "0.0.1",
+  "version": "0.0.7",
   "main": "index.js",
+  "repository": "alexbooker/sequelize-context",
   "license": "MIT",
   "scripts": {
-    "test": "mocha ./test/test.js",
-    "testd": "mocha debug ./test/test.js"
+    "test": "mocha ./test/test.js"
+  },
+  "author": {
+    "name": "Alex Booker",
+    "email": "alexbooker@fastmail.im",
+    "url": "booker.codes"
+  },
+  "engines": {
+    "node": ">=6.0.0"
   },
   "dependencies": {
     "glob": "^7.0.3",
