@@ -7,7 +7,7 @@ const {expect} = chai
 
 test('connect() throws when model doesn\'t exist', function () {
   const context = require('../')
-  const actual = context.connect('./test/modelFixtures/empty-dir/', 'testSchema', 'root', '', {
+  const actual = context.connect('./test/modelFixtures/empty-dir/*', 'testSchema', 'root', '', {
     dialect: 'sqlite',
     force: true
   })
@@ -20,7 +20,7 @@ test('connect() throws when model doesn\'t exist', function () {
 
 test('connect() throws when model func doesn\'t return', function () {
   const context = require('../')
-  const actual = context.connect('./test/modelFixtures/erroneous-model/', 'testSchema', 'root', '', {
+  const actual = context.connect('./test/modelFixtures/erroneous-model/*', 'testSchema', 'root', '', {
     dialect: 'sqlite',
     force: true
   })
@@ -33,7 +33,7 @@ test('connect() throws when model func doesn\'t return', function () {
 
 test('connect() throws when model doesn\'t export', function () {
   const context = require('../')
-  const actual = context.connect('./test/modelFixtures/model-with-no-exports/', 'test_schema', 'root', '', {
+  const actual = context.connect('./test/modelFixtures/model-with-no-exports/*', 'test_schema', 'root', '', {
     dialect: 'sqlite',
     force: true
   })
@@ -46,7 +46,18 @@ test('connect() throws when model doesn\'t export', function () {
 
 test('connect() creates associations', function () {
   const context = require('../')
-  return context.connect('./test/modelFixtures/valid-associated-models/', 'test_schema', 'root', '', {
+  return context.connect('./test/modelFixtures/valid-associated-models/*', 'test_schema', 'root', '', {
+    dialect: 'sqlite',
+    force: true
+  }).then(() => {
+    expect(context.models.user.associations.project).to.exist
+    expect(context.models.project.associations.users).to.exist
+  })
+})
+
+test('connect() creates associations with models that match glob', function () {
+  const context = require('../')
+  return context.connect('./test/modelFixtures/valid-associated-models-with-suffix/**/*.model.js', 'test_schema', 'root', '', {
     dialect: 'sqlite',
     force: true
   }).then(() => {

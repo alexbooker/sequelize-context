@@ -1,24 +1,17 @@
 const Sequelize = require('sequelize')
-const fs = require('fs')
 const pify = require('pify')
-const path = require('path')
-
-const readdir = pify(fs.readdir)
+const glob = pify(require('glob'))
 
 const context = {
   Sequelize,
-  connection: undefined,
-  models: undefined,
 
   connect (modelsGlob, ...sequelizeArgs) {
-    modelsGlob = path.join(__dirname, modelsGlob)
     this.connection = new Sequelize(...sequelizeArgs)
-    return readdir(modelsGlob).then(modelNames => {
-      if (modelNames.length < 1) {
+    return glob(modelsGlob).then(modelPaths => {
+      if (modelPaths.length < 1) {
         throw new Error(`Could not find any models in ${modelsGlob}.`)
       }
-      this.models = modelNames.reduce((models, modelName) => {
-        const modelPath = path.join(modelsGlob, modelName)
+      this.models = modelPaths.reduce((models, modelPath) => {
         const createModel = require(modelPath)
         if (typeof createModel !== 'function') {
           throw new Error(`Found a model named ${modelPath} but it does not export a function.`)

@@ -8,6 +8,7 @@
     "testd": "mocha debug ./test/test.js"
   },
   "dependencies": {
+    "glob": "^7.0.3",
     "pify": "^2.3.0"
   },
   "peerDependencies": {
