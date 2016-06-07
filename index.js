@@ -18,7 +18,8 @@ const reduceModels = (modelPaths) => {
     }
     const model = createModel(context)
     if (!model) {
-      throw new Error(`Found a model named ${modelPath}. It exports a function but that function doesn't return anything.`)
+      throw new Error(`Found a model named ${modelPath}.
+It exports a function but that function doesn't return anything.`)
     }
     return Object.assign(models, {
       [model.name]: model

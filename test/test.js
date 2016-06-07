@@ -28,7 +28,7 @@ test('connect() throws when model func doesn\'t return', function () {
     .to
     .eventually
     .be
-    .rejectedWith(/Found a model .* but that function doesn't return anything\./)
+    .rejectedWith(/Found a model named [\s\S]* but that function doesn't return anything\./)
 })
 
 test('connect() throws when model doesn\'t export', function () {
