@@ -3,10 +3,22 @@
   "version": "0.0.1",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "test": "mocha ./test/test.js",
+    "testd": "mocha debug ./test/test.js"
+  },
   "dependencies": {
     "pify": "^2.3.0"
   },
   "peerDependencies": {
     "sequelize": ">=2.0"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-as-promised": "^5.3.0",
+    "eslint": "^2.11.1",
+    "mocha": "^2.5.3",
+    "sequelize": "^3.23.3",
+    "sqlite3": "^3.1.4"
   }
 }
