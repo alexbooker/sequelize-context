@@ -1,6 +1,7 @@
 const Sequelize = require('sequelize')
 const pify = require('pify')
 const glob = pify(require('glob'))
+const path = require('path')
 
 const associateModels = (models) => {
   Object.keys(models).forEach(model => {
@@ -12,6 +13,7 @@ const associateModels = (models) => {
 
 const reduceModels = (modelPaths) => {
   return modelPaths.reduce((models, modelPath) => {
+    modelPath = path.join(process.cwd(), modelPath)
     const createModel = require(modelPath)
     if (typeof createModel !== 'function') {
       throw new Error(`Found a model named ${modelPath} but it does not export a function.`)
